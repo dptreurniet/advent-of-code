@@ -21,11 +21,7 @@ def is_safe(report):
     return (is_inc(report) or is_dec(report)) and min_dist(report) > 0 and max_dist(report) < 4
 
 def is_safe_with_pops(report):
-    for r in reports_to_test(report):
-        if (is_inc(r) or is_dec(r)) and min_dist(r) > 0 and max_dist(r) < 4:
-            return True
-    return False
-
+    return any(is_safe(r) for r in reports_to_test(report))
 
 def solve(data):
     with open(data) as f:
