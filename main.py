@@ -13,11 +13,10 @@ if __name__ == '__main__':
     print(f'Solving year {year}, day {day}{["", " with test input"][test]}...')
     data = 'year_{}/input/day{:02d}{}.txt'.format(year, int(day), ["", "_test"][test])
 
-    start = time.time()
+    start = time.monotonic()
     try:
         for i, ans in enumerate(eval('year_{}.day{:02d}.solve("{}")'.format(year, int(day), data))):
             print(f'\tAnswer to part {i+1}: {ans}')
     except FileNotFoundError:
         print(f'\t[ERROR] Required input file not found: {data}')
-    end = time.time()
-    print('Finished in {:.2f} ms'.format((end-start)*1000))
+    print('Finished in {:.2f} ms'.format((time.monotonic()-start)*1000))
