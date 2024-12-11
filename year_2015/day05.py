@@ -11,23 +11,14 @@ def is_nice_1(s):
     return True
 
 def is_nice_2(s):
-    if len(s) < 2: return False
-
-    pairs = [s[i-1]+s[i] for i in range(1, len(s))]
-    for pair in pairs:
-        if pair in s.replace(pair, '', 1):
-            print(s, pair)
-            break
-    else: return False
-
-    print(re.findall(r'(.).(?=\1)', s))
+    if not re.findall(r'(..).*\1', s): return False
+    if not re.findall(r'(.).\1', s): return False
     return len(re.findall(r'(.).(?=\1)', s)) > 0
 
 
 def solve(data):
     with open(data) as f:
         strings = [line.strip() for line in f.readlines()]
-    print(strings)
     
     yield len([s for s in strings if is_nice_1(s)])
     yield len([s for s in strings if is_nice_2(s)])
